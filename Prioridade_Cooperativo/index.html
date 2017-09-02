@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+   <head>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+      <script src="http://code.angularjs.org/angular-1.0.0rc3.min.js"></script>
+      <script type="text/javascript" src="todo.js" ></script>
+      <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+      <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+      <style type="text/css">
+         html {
+         font-family: 'Lato', sans-serif;
+         box-sizing: border-box;
+         }
+         td, tr {
+         border: 1px solid  black;
+         border-collapse: collapse;
+         }
+         table {
+         border: 1px solid  black;
+         border-collapse: collapse;
+         font-family: 'Lato', sans-serif;
+         width: 100%;
+         overflow-x: scroll; 
+         margin-bottom: 15px;
+         }
+         #main {
+         margin: 0 auto;
+         width: 1200px;
+         box-sizing: border-box;
+         }
+         .Geral {
+         height: 30px;
+         text-align: center;
+         border: 1px solid  black;
+         border-collapse: collapse;
+         font-size: 9px;
+         padding: 0px;
+         margin: 0px;
+         box-sizing: border-box;
+         max-width: 18px;
+         min-width: 18px;
+         }
+         .Processos {
+         height: 30px;
+         text-align: center;
+         box-sizing: border-box;
+         max-width: 50px;
+         min-width: 50px;
+         font-size: 12px;
+         }
+         .P {
+         background-color: red;
+         color: red;
+         border-color: black;  
+         box-sizing: border-box;
+         max-width: 18px;
+         min-width: 18px;
+         }
+         .F {
+         background-color: #ff9999;
+         color: #ff9999;
+         border-color: black;
+         box-sizing: border-box;
+         max-width: 18px;
+         min-width: 18px;
+         }
+         .O {
+         background-color: white;
+         color: white;
+         border: none;
+         box-sizing: border-box;
+         max-width: 18px;
+         min-width: 18px;
+         }
+         #legenda {
+         width: 20%;
+         }
+         h1,h2,h3,h4,h5,h6{
+            margin: 15px;
+         }
+         </style>
+   </head>
+   <body>
+      <div ng-controller="TodoCtrl">
+         <div class="container">
+            <h2>Escalonamento de Processos</h2>
+               <h3><i>Método: Prioridade - Cooperativo</i></h3>
+            <form class="form-horizontal" role="form">
+               <div class="form-group">
+                  <label class="control-label col-sm-2" for="numeroDeProcessos">Número de Processos:</label>
+                  <div id ="nProcessos" class="col-sm-6">
+                     <input ng-model="nProcessos" ng-change="onchange()" ng-model-options="{updateOn: 'blur'}" type="number"  min="1" max='10' ng-model="nProcessos" class="form-control" id="numeroDeProcessos" placeholder="Número de Processos...">
+                  </div>
+               </div>
+               <div id="processosAtributos" >
+               </div>
+               <!-- Split button -->
+               <div class="form-group">
+                  <div class="col-sm-offset-2 col-sm-5">
+                     <button type="button"  id="geraTabela" my-enter="ButtonClick()"  ng-click="ButtonClick()" class="btn btn-default">Gerar Tabela</button>
+                  </div>
+               </div>
+            </form>
+         </div>
+         <div id="main">
+            <table>
+               <tbody>
+                  <tr ng-repeat="processo in processos">
+                     <td class="Processos"><b>{{processo.nome}}</b></td>
+                     <td class='{{s.status}} Geral'  ng-repeat="s in processo.totalStatus">
+                        {{s.status}}
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+            <p><b>Legenda:</b> </p>
+            <table id="legenda">
+               <tbody>
+                  <tr>
+                     <td style="background:red"><b>Processando</b></td>
+                  </tr>
+                  <tr>
+                     <td style="background:#ff9999"><b>Na Fila</b></td>
+                  </tr>
+                  <tr>
+                     <td style="width:100px"><b>Não Existe/Encerrou</b></td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
+   </body>
+</html>
